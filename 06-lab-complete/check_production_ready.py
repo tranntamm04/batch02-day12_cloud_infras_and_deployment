@@ -63,7 +63,7 @@ def run_checks():
 
     # Check no hardcoded secrets in code
     secrets_found = []
-    for f in ["app/main.py", "app/config.py"]:
+    for f in ["codebase/src/api/main.py"]:
         fpath = os.path.join(base, f)
         if os.path.exists(fpath):
             content = open(fpath).read()
@@ -76,7 +76,7 @@ def run_checks():
 
     # ── API Endpoints ────────────────────────────��─
     print("\n🌐 API Endpoints (code check)")
-    main_py = os.path.join(base, "app", "main.py")
+    main_py = os.path.join(base, "codebase", "src", "api", "main.py")
     if os.path.exists(main_py):
         content = open(main_py).read()
         results.append(check("/health endpoint defined",
@@ -92,7 +92,7 @@ def run_checks():
         results.append(check("Structured logging (JSON)",
                              "json.dumps" in content or '"event"' in content))
     else:
-        results.append(check("app/main.py exists", False, "Create app/main.py!"))
+        results.append(check("codebase/src/api/main.py exists", False, "Create codebase/src/api/main.py!"))
 
     # ── Docker ─────────────────────────────────────
     print("\n🐳 Docker")

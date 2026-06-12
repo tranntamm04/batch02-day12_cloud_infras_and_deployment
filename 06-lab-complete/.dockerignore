@@ -2,10 +2,13 @@ __pycache__/
 *.pyc
 .env
 .env.*
+**/.env
+**/.env.*
 !.env.example
 venv/
 .venv/
 .git/
-*.md
 tests/
 .DS_Store
+codebase/frontend/node_modules/
+codebase/frontend/dist/

@@ -179,7 +179,8 @@ cd ../production
 
 Build và so sánh:
 ```bash
-docker build -t my-agent:advanced .
+cd ../..
+docker build -f 02-docker/production/Dockerfile -t my-agent:advanced .
 docker images | grep my-agent
 ```
 
@@ -276,9 +277,9 @@ Test:
 curl http://student-agent-domain/health
 
 # Agent endpoint
-curl http://studen-agent-domain/ask -X POST \
+curl http://student-agent-domain/ask -X POST \
   -H "Content-Type: application/json" \
-  -d '{"question": ""}'
+  -d '{"question": "hello"}'
 ```
 
 ###  Exercise 3.2: Deploy Render (15 phút)
@@ -368,9 +369,9 @@ cd ../production
 ```bash
 python app.py
 
-curl http://localhost:8000/token -X POST \
+curl http://localhost:8000/auth/token -X POST \
   -H "Content-Type: application/json" \
-  -d '{"username": "admin", "password": "secret"}'
+  -d '{"username": "student", "password": "demo123"}'
 ```
 
 3. Dùng token để gọi API:
@@ -597,7 +598,7 @@ Test:
 ```bash
 # Gọi 10 requests
 for i in {1..10}; do
-  curl http://localhost/ask -X POST \
+  curl http://localhost:8080/chat -X POST \
     -H "Content-Type: application/json" \
     -d '{"question": "Request '$i'"}'
 done

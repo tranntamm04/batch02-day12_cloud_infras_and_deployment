@@ -1,6 +1,6 @@
 services:
   - type: web
-    name: ai-agent-production
+    name: moni-finance-agent
     runtime: docker
     region: singapore
     plan: starter
@@ -9,15 +9,33 @@ services:
     envVars:
       - key: ENVIRONMENT
         value: production
+      - key: APP_NAME
+        value: Moni Finance Agent
       - key: APP_VERSION
         value: "1.0.0"
+      - key: DEFAULT_PROVIDER
+        value: openai
+      - key: DEFAULT_MODEL
+        value: gpt-4o
       - key: OPENAI_API_KEY
+        sync: false
+      - key: GEMINI_API_KEY
         sync: false
       - key: AGENT_API_KEY
         generateValue: true
-      - key: JWT_SECRET
-        generateValue: true
-      - key: DAILY_BUDGET_USD
-        value: "5.0"
       - key: RATE_LIMIT_PER_MINUTE
         value: "20"
+      - key: DAILY_BUDGET_USD
+        value: "5.0"
+      - key: ALLOWED_ORIGINS
+        value: "*"
+      - key: REDIS_URL
+        fromService:
+          type: redis
+          name: moni-agent-cache
+          property: connectionString
+
+  - type: redis
+    name: moni-agent-cache
+    plan: free
+    maxmemoryPolicy: allkeys-lru
